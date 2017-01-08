@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="chat">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Live chat</title>
+    <link rel="stylesheet" href="?path=styles/style.css">
+    <link rel="stylesheet" href="?path=styles/normalize.css">
+</head>
+
+<body>
+<div class="ui">
+    <div class="left-menu" ng-controller="leftmenu as vm" ng-include="'?path=leftmenu/chat.leftmenu.html'"></div>
+    <div class="chat" ng-view></div>
+</div>
+
+<script src="./?js=jquery"></script>
+<script src="./?js=jquery.nicescroll"></script>
+<script src="./?js=socket.io"></script>
+<script src="./?js=angular"></script>
+<script src="./?js=angular-route"></script>
+<script src="./?js=angular-cookies"></script>
+
+<script src="?path=app.js"></script>
+<script src="?path=chatbox/chat.chatbox.js"></script>
+<script src="?path=leftmenu/chat.leftmenu.js"></script>
+<script src="?path=login/chat.login.js"></script>
+<script src="?path=services/service.authentication.js"></script>
+
+</body>
+</html>

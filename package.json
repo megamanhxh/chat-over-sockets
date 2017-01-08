@@ -1,0 +1,25 @@
+{
+  "name": "chat-over-sockets",
+  "version": "0.1.0",
+  "description": "A chat project system using socket.io with Angularjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MegamanHxH",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-cookies": "^1.6.1",
+    "angular-route": "^1.6.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.10.2",
+    "install": "^0.8.4",
+    "jquery": "^3.1.1",
+    "jquery.nicescroll": "^3.6.8",
+    "md5": "^2.2.1",
+    "mysql": "^2.12.0",
+    "npm": "^4.0.5",
+    "socket.io": "^1.7.2"
+  }
+}

@@ -1,0 +1,18 @@
+<div class="top">
+    <div class="avatar">
+        <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
+    </div>
+    <div class="info">
+        <div class="name">{{ 'user.name' }}</div>
+        <div class="count">{{ conversationMessagesCount + ' messages'}}</div>
+    </div>
+    <i class="fa fa-star"></i>
+</div>
+<ul class="messages" ng-model="vm.messages">
+</ul>
+<div class="write-form">
+    <textarea placeholder="Type your message" name="e" id="texxt" ng-model="vm.chatTextInput" rows="2"></textarea>
+    <i class="fa fa-picture-o"></i>
+    <i class="fa fa-file-o"></i>
+    <span class="send">Send</span>
+</div>
