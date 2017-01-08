@@ -92,25 +92,30 @@ app.post('/auth', function (req, res) {
 
 io.on('connection', function (socket) {
     var connectedUser = socket.handshake.query['name'];
-    console.log('[Msg]: User ' + connectedUser + ' has been connected.');
+    console.log('[Chat]: User ' + connectedUser + ' has been connected.');
 
-    io.emit('SYS_MSG', 'Welcome to chat, ' + connectedUser + '!');
+    io.sockets.in(socket).emit('SYS_MSG', 'Welcome to chat, ' + connectedUser + '!');
     io.emit('HANDSHAKE_SUCCESSFUL', {"userID": socket.id, "userName": connectedUser});
+
+    //join the user to his own chat
+    socket.join(connectedUser);
 
     socket.on('CHAT_MSG', function (msg) {
         //parse and test if structure is valid
         if (msg.content) {
             //send to the same user
-            io.emit('CHAT_USER', msg.content);
+            console.log('[Chat]: Sending to self "' + msg.toUser + '"');
+            io.sockets.in(connectedUser).emit('CHAT_USER', msg.content);
         }
         if (msg.content && msg.toUser) {
-            //console.log(io.clients);
+            console.log('[Chat]: Sending to channel "' + msg.toUser + '"');
+            io.sockets.in(msg.toUser).emit('CHAT_OTHER',msg.content);
         }
         console.log('[Chat]: [' + connectedUser + '] -> [' + msg.toUser + '] {' + msg.content + '}');
     });
 
     socket.on('disconnect', function () {
-        console.log('[Msg]: User ' + connectedUser + ' has been disconnected');
+        console.log('[Chat]: User ' + connectedUser + ' has been disconnected');
     });
 });
 

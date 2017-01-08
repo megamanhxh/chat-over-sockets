@@ -14,8 +14,13 @@ angular.module('chat.chatbox', ['ngRoute'])
     .controller('chatbox', function ($scope, $rootScope, $location) {
         var vm = this;
 
+        (function initController() {
+            vm.userinfo = $rootScope.globals.currentUser;
+            vm.conversationMessagesCount = 0;
+        })();
+
         var clearResizeScroll, conf, userID, insertI, lol, receivedMessage, userName;
-        var socket = io('', {query: 'name=user1'});
+        var socket = io('', {query: 'name=' + vm.userinfo.userName});
 
         conf = {
             cursorcolor: "#696c75",
@@ -61,16 +66,19 @@ angular.module('chat.chatbox', ['ngRoute'])
         socket.on('CHAT_USER', function(msg){
             $(".messages").append("<li class=\"i\"><div class=\"head\"><span class=\"time\">" + (new Date().getHours()) + ":" + (new Date().getMinutes()) + " AM, Today</span><span class=\"name\"> You</span></div><div class=\"message\">" + msg + "</div></li>");
             receivedMessage();
+            vm.conversationMessagesCount++;
         });
 
         socket.on('CHAT_OTHER', function(msg){
             $(".messages").append("<li class=\"friend-with-a-SVAGina\"><div class=\"head\"><span class=\"name\">Friend  </span><span class=\"time\">" + (new Date().getHours()) + ":" + (new Date().getMinutes()) + " AM, Today</span></div><div class=\"message\">" + msg + "</div></li>");
             receivedMessage();
+            vm.conversationMessagesCount++;
         });
 
         socket.on('SYS_MSG', function(msg){
             $(".messages").append("<li class=\"system\"><div class=\"head\"><span class=\"name\">[System] </span><span class=\"time\">" + (new Date().getHours()) + ":" + (new Date().getMinutes()) + " AM, Today</span></div><div class=\"message\">" + msg + "</div></li>");
             receivedMessage();
+            vm.conversationMessagesCount++;
         });
 
         $(document).ready(function () {
